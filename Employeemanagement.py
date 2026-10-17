@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from datetime import datetime
 class Department:
     def __init__(self, department_id, department_name):
         self.department_id = department_id
@@ -118,7 +119,13 @@ def open_add_employee():
         employee_name = employee_name_entry.get()
         department_id = department_id_entry.get()
         employee_title = employee_title_entry.get()
-        
+        if not employee_id.strip() or not employee_name.strip() or not department_id.strip() or not employee_title.strip():
+            messagebox.showerror("Error", "All fields are required!")
+            return
+        for employee in employees:
+            if employee.employee_id == employee_id:
+                messagebox.showerror("Error", "Employee ID already exists!")
+                return
         new_employee = Employee(employee_id, employee_name, department_id, employee_title)
         employees.append(new_employee)
         messagebox.showinfo("Success", "Employee added successfully!")
@@ -226,6 +233,14 @@ def open_add_department():
     def save_department():
         department_id = department_id_entry.get()
         department_name = department_name_entry.get()
+        if not department_id.strip() or not department_name.strip():
+            messagebox.showerror("Error", "All fields are required!")
+            return
+        for department in departments:
+            if department.department_id == department_id:
+                messagebox.showerror("Error", "Department ID already exists!")
+                return
+        
         new_department = Department(department_id, department_name)
         departments.append(new_department)
         messagebox.showinfo("Success", "Department added successfully!")
@@ -269,7 +284,20 @@ def open_record_attendance():
         clock_in = clock_in_entry.get()
         clock_out = clock_out_entry.get()
         status = status_entry.get()
-        
+        if not employee_id.strip() or not date.strip() or not clock_in.strip() or not clock_out.strip() or not status.strip():
+            messagebox.showerror("Error", "All fields are required!")
+            return
+        status = status.strip().title()
+        if status not in ["Present", "Absent"]:
+            messagebox.showerror("Error", "Status must be either 'Present' or 'Absent'!")
+            return
+        try:
+            datetime.strptime(date, "%Y-%m-%d")
+            datetime.strptime(clock_in, "%H:%M")
+            datetime.strptime(clock_out, "%H:%M")
+        except ValueError:
+            messagebox.showerror("Error", "Invalid date or time format!")
+            return
         new_attendance = Attendance(employee_id, date, clock_in, clock_out, status)
         attendance_records.append(new_attendance)
         messagebox.showinfo("Success", "Attendance recorded successfully!")

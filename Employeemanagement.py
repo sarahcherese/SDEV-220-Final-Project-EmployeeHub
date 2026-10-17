@@ -34,6 +34,18 @@ def view_employees():
         print(f"Employee ID: {employee.employee_id}")
         print(f"Department ID: {employee.department_id}")
         print(f"Employee Title: {employee.employee_title}")
+
+def search_employee():
+    search_id = input("Enter Employee ID to search: ")
+    for employee in employees:
+        if employee.employee_id == search_id:
+            print(f"Employee Name: {employee.employee_name}")
+            print(f"Employee ID: {employee.employee_id}")
+            print(f"Department ID: {employee.department_id}")
+            print(f"Employee Title: {employee.employee_title}")
+            return
+    print("Employee not found.")
 add_employee()
 add_employee()
 view_employees()
+search_employee()

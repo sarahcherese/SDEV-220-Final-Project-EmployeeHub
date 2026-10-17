@@ -20,6 +20,7 @@ class Attendance:
 
 employees = []
 departments = []
+attendance_records = []
 def add_employee():
     employee_id = input("Enter Employee ID: ")
     employee_name = input("Enter Employee Name: ")
@@ -74,11 +75,21 @@ def view_departments():
     for department in departments:
         print(f"Department ID: {department.department_id}")
         print(f"Department Name: {department.department_name}")
+def record_attendance():
+    employee_id = input("Enter Employee ID: ")
+    date = input("Enter Date (YYYY-MM-DD): ")
+    clock_in = input("Enter Clock In Time (HH:MM): ")
+    clock_out = input("Enter Clock Out Time (HH:MM): ")
+    status = input("Enter Attendance Status (Present/Absent): ")
+    new_attendance = Attendance(employee_id, date, clock_in, clock_out, status)
+    attendance_records.append(new_attendance)
+    print("Attendance recorded successfully!")
 add_employee()
 add_employee()
 view_employees()
 search_employee()
 update_employee()
+record_attendance()
 remove_employee()
 view_employees()
 add_department()

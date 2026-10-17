@@ -27,5 +27,13 @@ def add_employee():
     new_employee = Employee(employee_id, employee_name, department_id, employee_title)
     employees.append(new_employee)
     print("Employee added successfully!")
+
+def view_employees(): 
+   for employee in employees:
+        print(f"Employee Name: {employee.employee_name}")
+        print(f"Employee ID: {employee.employee_id}")
+        print(f"Department ID: {employee.department_id}")
+        print(f"Employee Title: {employee.employee_title}")
 add_employee()
-print(employees[0].employee_name)  # Example of accessing the first employee's name
+add_employee()
+view_employees()

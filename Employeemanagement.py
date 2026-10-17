@@ -239,6 +239,52 @@ def open_view_departments():
     for department in departments:
         department_info = f"ID: {department.department_id}, Name: {department.department_name}"
         tk.Label(view_window, text=department_info).pack()
+def open_record_attendance():
+    attendance_window = tk.Toplevel(root)
+    attendance_window.title("Record Attendance")
+    attendance_window.geometry("400x400")
+    tk.Label(attendance_window, text="Employee ID:").pack()
+    employee_id_entry = tk.Entry(attendance_window)
+    employee_id_entry.pack()
+    
+    tk.Label(attendance_window, text="Date (YYYY-MM-DD):").pack()
+    date_entry = tk.Entry(attendance_window)
+    date_entry.pack()
+    
+    tk.Label(attendance_window, text="Clock In Time (HH:MM):").pack()
+    clock_in_entry = tk.Entry(attendance_window)
+    clock_in_entry.pack()
+    
+    tk.Label(attendance_window, text="Clock Out Time (HH:MM):").pack()
+    clock_out_entry = tk.Entry(attendance_window)
+    clock_out_entry.pack()
+    
+    tk.Label(attendance_window, text="Attendance Status (Present/Absent):").pack()
+    status_entry = tk.Entry(attendance_window)
+    status_entry.pack()
+    
+    def save_attendance():
+        employee_id = employee_id_entry.get()
+        date = date_entry.get()
+        clock_in = clock_in_entry.get()
+        clock_out = clock_out_entry.get()
+        status = status_entry.get()
+        
+        new_attendance = Attendance(employee_id, date, clock_in, clock_out, status)
+        attendance_records.append(new_attendance)
+        messagebox.showinfo("Success", "Attendance recorded successfully!")
+        attendance_window.destroy()
+    
+    save_button = tk.Button(attendance_window, text="Save Attendance", command=save_attendance)
+    save_button.pack(pady=10)
+def open_view_attendance():
+    view_window = tk.Toplevel(root)
+    view_window.title("View Attendance")
+    view_window.geometry("600x400")
+
+    for record in attendance_records:
+        attendance_info = f"Employee ID: {record.employee_id}, Date: {record.date}, Clock In: {record.clock_in}, Clock Out: {record.clock_out}, Status: {record.status}"
+        tk.Label(view_window, text=attendance_info).pack()
 root = tk.Tk()
 root.title("EmployeeHub - Employee Management System")
 root.geometry("800x600")
@@ -264,5 +310,11 @@ add_department_button.pack(pady=10)
 
 view_department_button = tk.Button(root, text="View Departments", command=open_view_departments)
 view_department_button.pack(pady=10)
+
+attendance_button = tk.Button(root, text="Record Attendance", command=open_record_attendance)
+attendance_button.pack(pady=10)
+
+view_attendance_button = tk.Button(root, text="View Attendance", command=open_view_attendance)
+view_attendance_button.pack(pady=10)
 
 root.mainloop()

@@ -55,9 +55,18 @@ def update_employee():
             print("Employee updated successfully!")
             return
     print("Employee not found.")
+def remove_employee():
+    remove_id = input("Enter Employee ID to remove: ")
+    for employee in employees:
+        if employee.employee_id == remove_id:
+            employees.remove(employee)
+            print("Employee removed successfully!")
+            return
+    print("Employee not found.")
 add_employee()
 add_employee()
 view_employees()
 search_employee()
 update_employee()
+remove_employee()
 view_employees()

@@ -151,6 +151,67 @@ def open_search_employee():
     
     search_button = tk.Button(search_window, text="Search", command=search)
     search_button.pack(pady=10)
+def open_update_employee():
+    update_window = tk.Toplevel(root)
+    update_window.title("Update Employee")
+    update_window.geometry("400x300")
+    tk.Label(update_window, text="Enter Employee ID to Update:").pack()
+    update_id_entry = tk.Entry(update_window)
+    update_id_entry.pack()
+    
+    def load_employee():
+        update_id = update_id_entry.get()
+        for employee in employees:
+            if employee.employee_id == update_id:
+                tk.Label(update_window, text="New Employee Name:").pack()
+                employee_name_entry = tk.Entry(update_window)
+                employee_name_entry.insert(0, employee.employee_name)
+                employee_name_entry.pack()
+                
+                tk.Label(update_window, text="New Department ID:").pack()
+                department_id_entry = tk.Entry(update_window)
+                department_id_entry.insert(0, employee.department_id)
+                department_id_entry.pack()
+                
+                tk.Label(update_window, text="New Employee Title:").pack()
+                employee_title_entry = tk.Entry(update_window)
+                employee_title_entry.insert(0, employee.employee_title)
+                employee_title_entry.pack()
+                
+                def save_updates():
+                    employee.employee_name = employee_name_entry.get()
+                    employee.department_id = department_id_entry.get()
+                    employee.employee_title = employee_title_entry.get()
+                    messagebox.showinfo("Success", "Employee updated successfully!")
+                    update_window.destroy()
+                
+                save_button = tk.Button(update_window, text="Save Updates", command=save_updates)
+                save_button.pack(pady=10)
+                return
+        messagebox.showerror("Error", "Employee not found.")
+    
+    load_button = tk.Button(update_window, text="Load Employee", command=load_employee)
+    load_button.pack(pady=10)
+def open_remove_employee():
+    remove_window = tk.Toplevel(root)
+    remove_window.title("Remove Employee")
+    remove_window.geometry("400x200")
+    tk.Label(remove_window, text="Enter Employee ID to Remove:").pack()
+    remove_id_entry = tk.Entry(remove_window)
+    remove_id_entry.pack()
+    
+    def remove():
+        remove_id = remove_id_entry.get()
+        for employee in employees:
+            if employee.employee_id == remove_id:
+                employees.remove(employee)
+                messagebox.showinfo("Success", "Employee removed successfully!")
+                remove_window.destroy()
+                return
+        messagebox.showerror("Error", "Employee not found.")
+    
+    remove_button = tk.Button(remove_window, text="Remove", command=remove)
+    remove_button.pack(pady=10)
 root = tk.Tk()
 root.title("EmployeeHub - Employee Management System")
 root.geometry("800x600")
@@ -161,6 +222,12 @@ add_button.pack(pady=10)
 
 view_button = tk.Button(root, text="View Employees", command=open_view_employees)
 view_button.pack(pady=10)
+
+update_button = tk.Button(root, text="Update Employee", command=open_update_employee)
+update_button.pack(pady=10)
+
+remove_button = tk.Button(root, text="Remove Employee", command=open_remove_employee)
+remove_button.pack(pady=10)
 
 search_button = tk.Button(root, text="Search Employee", command=open_search_employee)
 search_button.pack(pady=10)

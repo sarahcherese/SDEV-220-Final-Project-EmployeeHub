@@ -19,6 +19,7 @@ class Attendance:
         self.status = status
 
 employees = []
+departments = []
 def add_employee():
     employee_id = input("Enter Employee ID: ")
     employee_name = input("Enter Employee Name: ")
@@ -63,6 +64,16 @@ def remove_employee():
             print("Employee removed successfully!")
             return
     print("Employee not found.")
+def add_department():
+    department_id = input("Enter Department ID: ")
+    department_name = input("Enter Department Name: ")
+    new_department = Department(department_id, department_name)
+    departments.append(new_department)
+    print("Department added successfully!")
+def view_departments():
+    for department in departments:
+        print(f"Department ID: {department.department_id}")
+        print(f"Department Name: {department.department_name}")
 add_employee()
 add_employee()
 view_employees()
@@ -70,3 +81,5 @@ search_employee()
 update_employee()
 remove_employee()
 view_employees()
+add_department()
+view_departments()

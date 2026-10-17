@@ -45,7 +45,19 @@ def search_employee():
             print(f"Employee Title: {employee.employee_title}")
             return
     print("Employee not found.")
+def update_employee():
+    update_id = input("Enter Employee ID to update: ")
+    for employee in employees:
+        if employee.employee_id == update_id:
+            employee.employee_name = input("Enter new Employee Name: ")
+            employee.department_id = input("Enter new Department ID: ")
+            employee.employee_title = input("Enter new Employee Title: ")
+            print("Employee updated successfully!")
+            return
+    print("Employee not found.")
 add_employee()
 add_employee()
 view_employees()
 search_employee()
+update_employee()
+view_employees()

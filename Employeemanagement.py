@@ -1,3 +1,5 @@
+import tkinter as tk
+from tkinter import messagebox
 class Department:
     def __init__(self, department_id, department_name):
         self.department_id = department_id
@@ -84,13 +86,62 @@ def record_attendance():
     new_attendance = Attendance(employee_id, date, clock_in, clock_out, status)
     attendance_records.append(new_attendance)
     print("Attendance recorded successfully!")
-add_employee()
-add_employee()
-view_employees()
-search_employee()
-update_employee()
-record_attendance()
-remove_employee()
-view_employees()
-add_department()
-view_departments()
+# add_employee()
+# add_employee()
+# view_employees()
+# search_employee()
+# update_employee()
+# record_attendance()
+# remove_employee()
+# view_employees()
+# add_department()
+# view_departments()
+def open_add_employee():
+    add_window = tk.Toplevel(root)
+    add_window.title("Add Employee")
+    add_window.geometry("400x300")
+    tk.Label(add_window, text="Employee ID:").pack()
+    employee_id_entry = tk.Entry(add_window)
+    employee_id_entry.pack()
+    tk.Label(add_window, text="Employee Name:").pack()
+    employee_name_entry = tk.Entry(add_window)
+    employee_name_entry.pack()
+    tk.Label(add_window, text="Department ID:").pack()
+    department_id_entry = tk.Entry(add_window)
+    department_id_entry.pack()
+    tk.Label(add_window, text="Employee Title:").pack()
+    employee_title_entry = tk.Entry(add_window)
+    employee_title_entry.pack()
+    
+    def save_employee():
+        employee_id = employee_id_entry.get()
+        employee_name = employee_name_entry.get()
+        department_id = department_id_entry.get()
+        employee_title = employee_title_entry.get()
+        
+        new_employee = Employee(employee_id, employee_name, department_id, employee_title)
+        employees.append(new_employee)
+        messagebox.showinfo("Success", "Employee added successfully!")
+        add_window.destroy()
+    save_button = tk.Button(add_window, text="Save Employee", command=save_employee)
+    save_button.pack(pady=10)
+def open_view_employees():
+    view_window = tk.Toplevel(root)
+    view_window.title("View Employees")
+    view_window.geometry("400x300")
+    for employee in employees:
+        employee_info = f"ID: {employee.employee_id}, Name: {employee.employee_name}, Department ID: {employee.department_id}, Title: {employee.employee_title}"
+        tk.Label(view_window, text=employee_info).pack()
+
+root = tk.Tk()
+root.title("EmployeeHub - Employee Management System")
+root.geometry("800x600")
+title_label = tk.Label(root, text="Welcome to EmployeeHub", font=("Arial", 24, "bold"))
+title_label.pack(pady=20)
+add_button = tk.Button(root, text="Add Employee", command=open_add_employee)
+add_button.pack(pady=10)
+
+view_button = tk.Button(root, text="View Employees", command=open_view_employees)
+view_button.pack(pady=10)
+
+root.mainloop()

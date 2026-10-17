@@ -132,7 +132,25 @@ def open_view_employees():
     for employee in employees:
         employee_info = f"ID: {employee.employee_id}, Name: {employee.employee_name}, Department ID: {employee.department_id}, Title: {employee.employee_title}"
         tk.Label(view_window, text=employee_info).pack()
-
+def open_search_employee():
+    search_window = tk.Toplevel(root)
+    search_window.title("Search Employee")
+    search_window.geometry("400x200")
+    tk.Label(search_window, text="Enter Employee ID:").pack()
+    search_id_entry = tk.Entry(search_window)
+    search_id_entry.pack()
+    
+    def search():
+        search_id = search_id_entry.get()
+        for employee in employees:
+            if employee.employee_id == search_id:
+                employee_info = f"ID: {employee.employee_id}, Name: {employee.employee_name}, Department ID: {employee.department_id}, Title: {employee.employee_title}"
+                messagebox.showinfo("Employee Found", employee_info)
+                return
+        messagebox.showerror("Error", "Employee not found.")
+    
+    search_button = tk.Button(search_window, text="Search", command=search)
+    search_button.pack(pady=10)
 root = tk.Tk()
 root.title("EmployeeHub - Employee Management System")
 root.geometry("800x600")
@@ -143,5 +161,8 @@ add_button.pack(pady=10)
 
 view_button = tk.Button(root, text="View Employees", command=open_view_employees)
 view_button.pack(pady=10)
+
+search_button = tk.Button(root, text="Search Employee", command=open_search_employee)
+search_button.pack(pady=10)
 
 root.mainloop()

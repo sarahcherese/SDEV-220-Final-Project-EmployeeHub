@@ -212,6 +212,33 @@ def open_remove_employee():
     
     remove_button = tk.Button(remove_window, text="Remove", command=remove)
     remove_button.pack(pady=10)
+def open_add_department():
+    department_window = tk.Toplevel(root)
+    department_window.title("Add Department")
+    department_window.geometry("400x300")
+    tk.Label(department_window, text="Department ID:").pack()
+    department_id_entry = tk.Entry(department_window)
+    department_id_entry.pack()
+
+    tk.Label(department_window, text="Department Name:").pack()
+    department_name_entry = tk.Entry(department_window)
+    department_name_entry.pack()
+    def save_department():
+        department_id = department_id_entry.get()
+        department_name = department_name_entry.get()
+        new_department = Department(department_id, department_name)
+        departments.append(new_department)
+        messagebox.showinfo("Success", "Department added successfully!")
+        department_window.destroy()
+    save_button = tk.Button(department_window, text="Save Department", command=save_department)
+    save_button.pack(pady=10)
+def open_view_departments():
+    view_window = tk.Toplevel(root)
+    view_window.title("View Departments")
+    view_window.geometry("400x300")
+    for department in departments:
+        department_info = f"ID: {department.department_id}, Name: {department.department_name}"
+        tk.Label(view_window, text=department_info).pack()
 root = tk.Tk()
 root.title("EmployeeHub - Employee Management System")
 root.geometry("800x600")
@@ -231,5 +258,11 @@ remove_button.pack(pady=10)
 
 search_button = tk.Button(root, text="Search Employee", command=open_search_employee)
 search_button.pack(pady=10)
+
+add_department_button = tk.Button(root, text="Add Department", command=open_add_department)
+add_department_button.pack(pady=10)
+
+view_department_button = tk.Button(root, text="View Departments", command=open_view_departments)
+view_department_button.pack(pady=10)
 
 root.mainloop()
